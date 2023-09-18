@@ -6,6 +6,7 @@ import datetime
 from uuid import UUID
 import json
 import os
+import pep8
 
 
 class test_basemodel(unittest.TestCase):
@@ -17,9 +18,10 @@ class test_basemodel(unittest.TestCase):
         self.name = 'BaseModel'
         self.value = BaseModel
 
+    @classmethod
     def setUp(self):
         """ """
-        pass
+        cls
 
     def tearDown(self):
         try:
@@ -89,7 +91,8 @@ class test_basemodel(unittest.TestCase):
         """ """
         new = self.value()
         self.assertEqual(type(new.created_at), datetime.datetime)
-   
+
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "not supported")
     def test_updated_at(self):
         """ """
         new = self.value()
@@ -97,3 +100,18 @@ class test_basemodel(unittest.TestCase):
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+
+    def test_created_at_str(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.created_at.isoformat()), str)
+    
+    def test_pycodestyle(self):
+        """ """
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/base_model.py'])
+        self.assertEqual(p.total_errors, 0, "pep8 error base_model.py")
+
+if __name__ == '__main__':
+    unittest.main()
+        
