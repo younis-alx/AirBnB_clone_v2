@@ -19,9 +19,16 @@ class test_basemodel(unittest.TestCase):
         self.value = BaseModel
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         """ """
-        cls
+        cls.base = BaseModel()
+        cls.base.name = "alx"
+        cls.base.my_number = 89
+
+    @classmethod
+    def teardown(cls):
+        """ """
+        del cls.base
 
     def tearDown(self):
         try:
@@ -105,13 +112,13 @@ class test_basemodel(unittest.TestCase):
         """ """
         new = self.value()
         self.assertEqual(type(new.created_at.isoformat()), str)
-    
+
     def test_pycodestyle(self):
         """ """
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/base_model.py'])
         self.assertEqual(p.total_errors, 0, "pep8 error base_model.py")
 
+
 if __name__ == '__main__':
     unittest.main()
-        
