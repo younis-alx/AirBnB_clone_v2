@@ -5,3 +5,6 @@ htmlcov/
 .vscode/
 test_params_create
 .coverage
+file.json
+main_delete.py
+main_place_amenities.py
