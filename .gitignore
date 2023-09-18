@@ -2,5 +2,6 @@ vscode/
 venv/
 __pycache__/
 htmlcov/
-.coverage
 .vscode/
+test_params_create
+.coverage
