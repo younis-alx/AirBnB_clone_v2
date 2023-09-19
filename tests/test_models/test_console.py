@@ -3,7 +3,7 @@
 from console import HBNBCommand
 import unittest
 from io import StringIO
-from unittest.mock import patch 
+from unittest.mock import patch
 from models.engine.db_storage import DBStorage
 from models import storage
 
@@ -26,8 +26,10 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("show State")
             self.assertEqual(f.getvalue(), "** instance id missing **\n")
 
-        @unittest.skipIf(type(storage) == DBStorage, "not testing db storage")
+        @unittest.skipIf(isinstance(storage, DBStorage),
+                         "not testing db storage")
         def test_show_2(self):
+            """ Test for show 2"""
             with patch('sys.stdout', new=StringIO(), ) as f:
                 HBNBCommand().onecmd("show State 1234-1234-1234")
                 self.assertEqual(f.getvalue(), "** no instance found **\n")

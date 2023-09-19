@@ -10,23 +10,31 @@ from models.base_model import BaseModel
 
 
 class test_City(test_basemodel):
-    """ """
+    """ test the City class"""
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initializes class
+
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+        Attributes:
+            name: name of the class
+            value: object of the class
+        """
         super().__init__(*args, **kwargs)
         self.name = "City"
         self.value = City
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "not supported")
     def test_state_id(self):
-        """ """
+        """ test if state_id is a string"""
         new = self.value()
         self.assertEqual(type(new.state_id), str)
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "not supported")
     def test_name(self):
-        """ """
+        """ test if name is a string"""
         new = self.value()
         self.assertEqual(type(new.name), str)
 

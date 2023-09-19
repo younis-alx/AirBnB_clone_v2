@@ -7,30 +7,41 @@ import unittest
 from unittest.mock import patch
 from models.base_model import BaseModel
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "Testing DBStorage only")
+
+@unittest.skipIf(os.getenv(
+    'HBNB_TYPE_STORAGE') == 'db', "Testing DBStorage only")
 class test_review(test_basemodel):
-    """ """
+    """ test the review class"""
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initializes class
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+        Attributes:
+            name: name of the class
+            value: object of the class
+
+        """
         super().__init__(*args, **kwargs)
         self.name = "Review"
         self.value = Review
 
     def test_place_id(self):
-        """ """
+        """ test if place_id is a string"""
         new = self.value()
         self.assertEqual(type(new.place_id), str)
 
     def test_user_id(self):
-        """ """
+        """ test if user_id is a string"""
         new = self.value()
         self.assertEqual(type(new.user_id), str)
 
     def test_text(self):
-        """ """
+        """ test if text is a string"""
         new = self.value()
         self.assertEqual(type(new.text), str)
+
 
 class test_review2(unittest.TestCase):
     """this will test the review class"""
@@ -52,7 +63,7 @@ class test_review2(unittest.TestCase):
         """teardown"""
         try:
             os.remove("file.json")
-        except:
+        except FileNotFoundError:
             pass
 
     def test_docstring(self):
@@ -87,7 +98,7 @@ class test_review2(unittest.TestCase):
     def test_to_dict(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.review), True)
-    
+
     @patch('models.storage')
     def test_save(self, mock_storage):
         """test if save works"""

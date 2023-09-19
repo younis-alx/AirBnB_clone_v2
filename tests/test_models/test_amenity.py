@@ -8,27 +8,36 @@ from unittest.mock import patch
 from time import sleep
 from os import getenv
 import pycodestyle
-import inspect
 import unittest
+
 storage_t = getenv("HBNB_TYPE_STORAGE")
 
+
 class test_Amenity(test_basemodel):
-    """ """
+    """ test the Amenity class """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """initializes class
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+        Attributes:
+            name: name of amenity
+            value: object of the Amenity class
+        """
         super().__init__(*args, **kwargs)
         self.name = "Amenity"
         self.value = Amenity
 
     def test_name2(self):
-        """ """
+        """test if name is a string"""
         new = self.value()
         self.assertNotEqual(type(new.name), str)
 
 
 class Test_PEP8(unittest.TestCase):
-    """test User"""
+    """test User for pep8 style"""
+
     def test_pep8_user(self):
         """test pep8 style"""
         pep8style = pycodestyle.StyleGuide(quiet=True)
@@ -39,6 +48,7 @@ class Test_PEP8(unittest.TestCase):
 
 class test_inherit_basemodel(unittest.TestCase):
     """Test if user inherit from BaseModel"""
+
     def test_instance(self):
         """check if user is an instance of BaseModel"""
         user = Amenity()
@@ -49,25 +59,26 @@ class test_inherit_basemodel(unittest.TestCase):
 
 class test_Amenity_BaseModel(unittest.TestCase):
     """Testing user class"""
+
     def test_instances(self):
         with patch('models.amenity'):
             instance = Amenity()
             self.assertEqual(type(instance), Amenity)
             instance.name = "Barbie"
             expectec_attrs_types = {
-                    "id": str,
-                    "created_at": datetime,
-                    "updated_at": datetime,
-                    "name": str,
-                    }
+                "id": str,
+                "created_at": datetime,
+                "updated_at": datetime,
+                "name": str,
+            }
             inst_dict = instance.to_dict()
             expected_dict_attrs = [
-                    "id",
-                    "created_at",
-                    "updated_at",
-                    "name",
-                    "__class__"
-                    ]
+                "id",
+                "created_at",
+                "updated_at",
+                "name",
+                "__class__"
+            ]
             self.assertCountEqual(inst_dict.keys(), expected_dict_attrs)
             self.assertEqual(inst_dict['name'], 'Barbie')
             self.assertEqual(inst_dict['__class__'], 'Amenity')
@@ -135,7 +146,6 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(hasattr(amenity, "created_at"))
         self.assertTrue(hasattr(amenity, "updated_at"))
 
-    # @unittest.skipIf(storage_t == 'db', "not testing db storage")
     def test_name_attr(self):
         """Test that Amenity has attribute name, and it's as an empty string"""
         amenity = Amenity()

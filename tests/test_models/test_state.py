@@ -8,23 +8,32 @@ import unittest
 import os
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "Testing DBStorage only")
+@unittest.skipIf(os.getenv(
+    'HBNB_TYPE_STORAGE') == 'db', "Testing DBStorage only")
 class test_state(test_basemodel):
-    """ """
+    """ test the state class"""
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initializes class
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        Attributes:
+            name: name of the class
+            value: object of the class
+        """
         super().__init__(*args, **kwargs)
         self.name = "State"
         self.value = State
 
     def test_name2(self):
-        """ """
+        """ test if name is a string"""
         new = self.value()
         self.assertEqual(type(new.name), str)
 
     def test_name3(self):
-        """ """
+        """ test if name is a string"""
         new = self.value()
         self.assertEqual(type(new.name), str)
 
@@ -47,7 +56,7 @@ class test_state2(unittest.TestCase):
         """teardown"""
         try:
             os.remove("file.json")
-        except:
+        except FileNotFoundError:
             pass
 
     def test_docstring(self):
