@@ -22,16 +22,16 @@ place_amenity = Table("place_amenity", Base.metadata,
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
-        city_id: city id
-        user_id: user id
-        name: name input
-        description: string of description
-        number_rooms: number of room in int
-        number_bathrooms: number of bathrooms in int
-        max_guest: maximum guest in int
-        price_by_night:: pice for a staying in int
-        latitude: latitude in flaot
-        longitude: longitude in float
+        city_id: The city id
+        user_id: The user id
+        name: input name
+        description: input description
+        number_rooms: number of rooms
+        number_bathrooms: number of bathrooms
+        max_guest: maximum guest
+        price_by_night: price by night
+        latitude: latitude
+        longitude: longitude
         amenity_ids: list of Amenity ids
     """
     __tablename__ = "places"
@@ -57,7 +57,7 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
-            """ Returns list of reviews.id """
+            """ Returns list of review instances with place_id equal to """
             var = models.storage.all()
             lista = []
             result = []
@@ -73,12 +73,12 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            """ Returns list of amenity ids """
+            """ Returns list of amenity instances with place_id equal to """
             return self.amenity_ids
 
         @amenities.setter
         def amenities(self, obj=None):
-            """ Appends amenity ids to the attribute """
+            """ Handles append method for adding an Amenity.id to the attribute """
             from models.amenity import Amenity
 
             if type(obj) is Amenity and obj.id not in self.amenity_ids:

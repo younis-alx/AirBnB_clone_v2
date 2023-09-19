@@ -19,6 +19,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        """ Returns list of city instances with state_id equal to """
         var = models.storage.all()
         lista = []
         result = []

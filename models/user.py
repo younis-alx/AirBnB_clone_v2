@@ -8,10 +8,10 @@ from sqlalchemy.orm import relationship
 class User(BaseModel, Base):
     """This is the class for user
     Attributes:
-        email: email address
-        password: password for you login
-        first_name: first name
-        last_name: last name
+        email: input email
+        password: input password
+        first_name: input first name
+        last_name: input last name
     """
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
