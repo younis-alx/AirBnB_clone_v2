@@ -1,50 +1,41 @@
-#!/usr/bin/pyton3
-""" fabfiles to stramline data to """
-
-import os.path
-from fabric.api import env
-from fabric.api import put
-from fabric.api import run
+#!/usr/bin/python3
+""" Fabric script that distributes an archive to your web servers"""
+from fabric.api import *
+from os import path
 
 
 env.hosts = ['100.26.235.153', '52.91.118.87']
 
-def do_deploy(archive_path):
-y(archive_path):
-    """Distributes an archive to a web server.
-    Args:
-        archive_path (str): The path of the archive to distribute.
-    Returns:
-        If the file doesn't exist at archive_path or an error occurs - False.
-        Otherwise - True.
-    """
-    if os.path.isfile(archive_path) is False:
-        return False
-    file = archive_path.split("/")[-1]
-    name = file.split(".")[0]
 
-    if put(archive_path, "/tmp/{}".format(file)).failed is True:
+def do_deploy(archive_path):
+    """deploys the archives to server"""
+    try:
+        if not (path.exists(archive_path)):
+            return False
+
+        # uploading the archive
+        put(archive_path, "/tmp/")
+
+        # uncompress the archive
+        parts = archive_path.split('_')
+        time_stamp = parts[2].split(".")[0]
+        run("sudo rm -rf /data/web_static/releases/\
+web_static_{}".format(time_stamp))
+        run("sudo mkdir -p /data/web_static/releases/\
+web_static_{}".format(time_stamp))
+        run("sudo tar -xvf /tmp/web_static_{}.tgz -C /data/\
+web_static/releases/web_static_{}".format(time_stamp, time_stamp))
+
+        # delete the archive from web_server
+        run("sudo rm -rf /tmp/web_static_{}.tgz".format(time_stamp))
+
+        # delete the symbolic link
+        run("sudo rm -rf /data/web_static/current")
+
+        # create a new symblolic link
+        run("sudo ln -sf /data/web_static/releases/\
+web_static_{} /data/web_static/current".format(time_stamp))
+
+        return True
+    except Exception as e:
         return False
-    if sudo("rm -rf /data/web_static/releases/{}/".
-           format(name)).failed is True:
-        return False
-    if sudo("mkdir -p /data/web_static/releases/{}/".
-           format(name)).failed is True:
-        return False
-    if sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-           format(file, name)).failed is True:
-        return False
-    if sudo("rm /tmp/{}".format(file)).failed is True:
-        return False
-    if sudo("mv /data/web_static/releases/{}/web_static/* "
-           "/data/web_static/releases/{}/".format(name, name)).failed is True:
-        return False
-    if sudo("rm -rf /data/web_static/releases/{}/web_static".
-           format(name)).failed is True:
-        return False
-    if sudo("rm -rf /data/web_static/current").failed is True:
-        return False
-    if sudo("ln -s /data/web_static/releases/{}/ /data/web_static/current".
-           format(name)).failed is True:
-        return False
-    return True
