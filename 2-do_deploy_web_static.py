@@ -1,5 +1,5 @@
 #!/usr/bin/pyton3
-# fabfiles to stramline data to 
+""" fabfiles to stramline data to """
 
 import os.path
 from fabric.api import env
