@@ -8,7 +8,7 @@ from fabric.api import *
 from datetime import datetime
 import tarfile
 import re
-from os.path
+import os.path
 
 
 env.hosts = ['100.26.235.153', '52.91.118.87']
