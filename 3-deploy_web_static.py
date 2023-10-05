@@ -28,6 +28,7 @@ def do_pack():
     else:
         return None
 
+
 def do_deploy(archive_path):
     """distributes an archive to your web servers
     """
@@ -45,9 +46,8 @@ def do_deploy(archive_path):
         sudo('rm -rf /data/web_static/current')
         sudo('ln -s {}/ "/data/web_static/current"'.format(main))
         return True
-    except:
+    except Exception:
         return False
-
 
 
 def deploy():

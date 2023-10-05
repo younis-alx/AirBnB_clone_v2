@@ -24,6 +24,6 @@ def do_deploy(archive_path):
         sudo('mv {}/web_static/* {}/'.format(main, main))
         sudo('rm -rf /data/web_static/current')
         sudo('ln -s {}/ "/data/web_static/current"'.format(main))
-        return True  
+        return True
     except Exception:
         return False
