@@ -8,7 +8,7 @@ sudo apt-get -y update && sudo apt-get -y upgrade
 if [[ ! $(command -v nginx &> /dev/null) ]];
 then
     sudo apt-get install -y nginx
-else if [[ $(sudo nginx -t &> /dev/null) ]];
+elif [[ $(sudo nginx -t &> /dev/null) ]];
 then
     sudo service nginx start
 fi
