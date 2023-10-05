@@ -15,6 +15,7 @@ env.hosts = ['100.26.235.153', '52.91.118.87']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
+
 def do_pack():
     """Create a tar gzipped archive of the directory web_static."""
     dt = datetime.utcnow()
